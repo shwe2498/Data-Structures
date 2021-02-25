@@ -1,0 +1,45 @@
+void rotate_array(vector<int>& arr, int n) {
+ //-ve == left rotation == delete from start and aappend to the end
+ //+ve == right rotation == delete from end and insert at start
+ //1. check greater than 0 == +ve 
+ 
+ vector<int> cp;
+ if(n > 0){
+     //get last n elements from arr
+     copy(arr.begin() + (arr.size() - n), arr.end(), back_inserter(cp));
+     for(int i =0; i < n; i++){
+         arr.pop_back();
+     }
+     
+     arr.insert(arr.begin(), cp.begin(), cp.end());
+ }
+ else if (n < 0){
+     //get first n elements from arr
+     copy(arr.begin(), arr.begin() + abs(n), back_inserter(cp));
+     for(int i =0; i < abs(n); i++){
+         arr.erase(arr.begin());
+     }
+     
+     arr.insert(arr.end(), cp.begin(), cp.end());
+ }
+ else if(n == arr.size()){
+     //do nothing as it's same
+ }
+}
+
+int main() {
+  vector<int> arr = {1, 10, 20, 0, 59, 86, 32, 11, 9, 40};
+
+  cout<<"Array Before Rotation"<<endl;
+  for(int i = 0; i < arr.size(); i++)
+    cout<<std::to_string(arr[i])+", ";
+  cout<<endl;
+  
+  cout<<"Array After Rotation"<<endl;
+  
+  rotate_array(arr, -1);
+  
+  for(int x = 0; x < arr.size(); x++)
+    cout<<std::to_string(arr[x])+", ";
+  cout<<endl;
+}
