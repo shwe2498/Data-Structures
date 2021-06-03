@@ -1,0 +1,42 @@
+int sumRootToLeaf(TreeNode* root){
+  int sum = 0, curr = 0;
+  int steps = 0;
+  TreeNode* predecessor;
+  
+  while(root){
+    if(root->left){
+      predecessor = root->left;
+      steps = 1;
+      
+      while(predecessor->right && predecessor->right != root){
+        predecessor = predecessor->right;
+        ++steps;
+      }
+      
+      if(!predecessor->right){
+        curr = (curr << 1) | root->val;
+        predecessor->right = root;
+        root = root->left;
+      }
+      else{
+        if(!predecessor->left){
+          sum += curr;
+        }
+        for(int i = 0; i < steps; i++){
+          curr >>= 1;
+        }
+        
+        predecessor->right = nullptr;
+        root = root->right;
+      }
+    }
+    else{
+      curr = (curr << 1) | root->val;
+      if(!root->right){
+        sum += curr;
+      }
+      root = root->right;
+    }
+  }
+  return sum;
+}
