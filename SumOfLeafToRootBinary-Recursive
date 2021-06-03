@@ -1,0 +1,17 @@
+int sumRootToLeaf(TreeNode* root) {
+     int sum = 0;
+     preorder(root, 0, sum);
+     return sum;
+}
+void preorder(TreeNode* root, int currNum, int sum){
+    if(root){
+      currNum = (currNum << 1) | root->val;
+      
+      if(!root->left && !root->right){
+        sum += currNum;
+      }
+      preorder(root->left, currNum, sum);
+      preorder(root->right, currNum, sum); 
+    }
+}
+  
