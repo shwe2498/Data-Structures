@@ -16,8 +16,9 @@ using namespace std;
 bool searchMatrix(vector<vector<int>> mat, int target){
     int i = 0;
     auto j = mat.size() - 1;
+    auto k = mat[0].size() - 1;
     
-    while(i < mat[0].size() && j >= 0){
+    while(i < k && j >= 0){
         if(mat[i][j] == target){
             return true;
         }
