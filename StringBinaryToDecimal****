@@ -1,0 +1,44 @@
+
+int power(int n, int i){
+    //O(logn)
+    int temp = 0;
+    if( i == 0)
+        return 1;
+    temp = power(n, i / 2);
+    if (i % 2 == 0)
+        return temp * temp;
+    else
+        return n * temp * temp;
+}
+
+//O(nlogk) k-> no of 1's count
+int convertBinaryStringToDecimal(string s){
+    int value = 0;
+    int count = 0;
+    for(int i = s.size()-1; i >=0; i--){
+        if(s[i] == '1'){
+            value += power(2, count);
+        }
+        count++;
+    }
+    return value;
+}
+
+//TC : O(n) used Dynamic Programming for power calculations SC : O(n)
+long long convertBinaryStringToDecimal(string s){
+    long long value = 0;
+    int count = 0;
+    vector<long long> p(s.size()+1, -1);
+    p[0] = 1;
+    for(int i = s.size()-1; i >=0; i--){
+        if(s[i] == '1'){
+            value += p[count];
+        }
+        count++;
+
+        if(p[count] == -1){
+            p[count] = 2 * p[count-1];
+        }
+    }
+    return value;
+}
